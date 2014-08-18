@@ -172,7 +172,7 @@ function stub_content_output_csv($data) {
  * Output JSON for stubbed content
  */
 function stub_content_output_json($data) {
-  $output = json_enocde($data);
+  $output = json_encode($data);
   return $output;
 }
 
