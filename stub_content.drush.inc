@@ -121,7 +121,6 @@ function stub_content_build_data_array($type, $fields) {
       elseif (is_string($content_generation) && is_callable($content_generation)) {
         $callback = $content_generation;
       }
-      var_dump($callback);
       if ($callback && is_callable($ocntent_generation)) {
         $this_item[$field] = call_user_func($callback, $this_item[$field]);
       }
@@ -137,10 +136,12 @@ function stub_content_build_data_array($type, $fields) {
 function stub_content_generate_content() {
   $content = '';
   if (function_exists('devel_create_content')) {
+    var_dump('devel_create_content');
     $content = devel_create_content();
   }
   else {
     // get a quote
+    var_dump('quote');
     $quote = file_get_contents('http://www.iheartquotes.com/api/v1/random');
     $content = str_replace(array("\r\n", "\r", "\n"), " ", $quote);
   }
