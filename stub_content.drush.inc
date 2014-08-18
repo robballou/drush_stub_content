@@ -121,11 +121,11 @@ function stub_content_build_data_array($type, $fields) {
       elseif (is_string($content_generation) && is_callable($content_generation)) {
         $callback = $content_generation;
       }
-      if ($callback && is_callable($content_generation)) {
+      if ($callback) {
         $this_item[$field] = call_user_func($callback, $this_item[$field]);
       }
       else {
-        drush_log(t('Cannot call content callback: %callback', array('%callback' => $callback)), 'error');
+        drush_log(t('Cannot call content callback: !callback', array('!callback' => $callback)), 'error');
       }
     }
     array_push($data, $this_item);
