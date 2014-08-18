@@ -75,12 +75,12 @@ function drush_stub_content($type = NULL, $entity_type = 'node') {
     return;
   }
 
-  $data = stub_content_build_data_array($fields);
+  $data = stub_content_build_data_array($type, $fields);
   $output = $output_function($data);
   print $output;
 }
 
-function stub_content_build_data_array($fields) {
+function stub_content_build_data_array($type, $fields) {
   $include_id = drush_get_option('include-id', FALSE);
   $include_title = drush_get_option('include-title', FALSE);
 
