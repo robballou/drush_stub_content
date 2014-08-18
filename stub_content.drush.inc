@@ -124,6 +124,9 @@ function stub_content_build_data_array($type, $fields) {
       if ($callback && is_callable($content_generation)) {
         $this_item[$field] = call_user_func($callback, $this_item[$field]);
       }
+      else {
+        drush_log(t('Cannot call content callback: %callback', array('%callback' => $callback)), 'error');
+      }
     }
     array_push($data, $this_item);
   }
