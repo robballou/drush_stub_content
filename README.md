@@ -26,6 +26,11 @@ You can see an option for content generation, which is probably best to set in a
 
 Content generation can either be an array of field -> callback values or a single callback. The callback receives the current field and content (if any).
 
+## Todo
+
+* Identify when a field relates to another entity (node, taxonomy term, etc.). It would be great if this could be used to pull ID values randomly from other stubbed content as well.
+* Allow it to pull existing references from the database if desired (e.g., use terms that exist on the site)
+
 ## Related projects
 
 * [Devel generate](http://drupal.org/project/devel)
