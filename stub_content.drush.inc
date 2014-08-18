@@ -23,7 +23,7 @@ function stub_content_drush_command() {
       'skip-content-generation' => array(
         'description' => 'Bypass content generation',
         'default' => FALSE,
-      )
+      ),
       'count' => array(
         'description' => 'Number of items to create',
         'default' => 1,
