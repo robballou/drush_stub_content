@@ -25,3 +25,8 @@ You can see an option for content generation, which is probably best to set in a
     );
 
 Content generation can either be an array of field -> callback values or a single callback. The callback receives the current field and content (if any).
+
+## Related projects
+
+* [Devel generate](http://drupal.org/project/devel)
+* [Realistic Dummy Content](http://drupal.org/project/realistic_dummy_content)
