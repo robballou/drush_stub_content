@@ -9,6 +9,7 @@ Tool for creating exported stub content. This can be used in conjunction with Mi
 - include-id: auto-generate an ID number
 - include-title: auto-generate a title
 - output: content output mode. Supports CSV, JSON, YAML
+- skip-content-generation: do not generate content. This does not affect the id/title options.
 
 ## Content generation
 

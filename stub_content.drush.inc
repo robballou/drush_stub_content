@@ -77,6 +77,8 @@ function drush_stub_content($type = NULL, $entity_type = 'node') {
   );
 
   foreach ($field_info as $field => $info) {
+    // TODO: check if this is a reference field to another entity, if so
+    // display information about it that can be used to include information
     array_push($fields, $field);
   }
 
