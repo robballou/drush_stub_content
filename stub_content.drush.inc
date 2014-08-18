@@ -128,7 +128,7 @@ function stub_content_output_yaml($data) {
 
   foreach ($data as $row) {
     if (function_exists('yaml_emit')) {
-      $output = yaml_emit($row);
+      $output .= yaml_emit($row);
     }
   }
 
