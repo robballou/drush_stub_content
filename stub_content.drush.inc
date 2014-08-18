@@ -17,6 +17,9 @@ function stub_content_drush_command() {
       'count' => 'The number of items',
     ),
     'options' => array(
+      'content-generation' => array(
+        'description' => 'Options for generating content. Usually set in a configuration file.',
+      ),
       'count' => array(
         'description' => 'Number of items to create',
         'default' => 1,
@@ -49,12 +52,16 @@ function stub_content_drush_command() {
 function drush_stub_content($type = NULL, $entity_type = 'node') {
   // if no types are passed, output types
   if (!$type) {
-    return drush_typeinfo_list();
+    drush_log(t('No type specified'), 'error');
+    if (function_exists('drush_typeinfo_list')) {
+      return drush_typeinfo_list();
+    }
+    return;
   }
 
   $type_info = entity_get_info($entity_type);
   if (!isset($type_info['bundles'][$type])) {
-    drush_log(t('The requested type does not exist. Try: drush typeinfo-list'), 'error');
+    drush_log(t('The requested type does not exist. If you have drush_typeinfo, use: drush typeinfo-list'), 'error');
     return;
   }
 
@@ -80,9 +87,15 @@ function drush_stub_content($type = NULL, $entity_type = 'node') {
   print $output;
 }
 
+/**
+ * Build an array data structure for output
+ */
 function stub_content_build_data_array($type, $fields) {
   $include_id = drush_get_option('include-id', FALSE);
   $include_title = drush_get_option('include-title', FALSE);
+
+  $content_generation = drush_get_option('content-generation', array());
+  $content_generation['body'] = 'stub_content_generate_content';
 
   $data = array();
   foreach (range(1, drush_get_option('count', 1)) as $item) {
@@ -100,10 +113,29 @@ function stub_content_build_data_array($type, $fields) {
       elseif ($include_title && $field === 'title') {
         $this_item[$field] = ucfirst(str_replace('_', ' ', $type)) . ' ' . $item;
       }
+
+      // call the callback for this field
+      $callback = NULL;
+      if (isset($content_generation[$field])) {
+        $callback = $content_generation[$field];
+      }
+      elseif (is_string($content_generation) && is_callable($content_generation)) {
+        $callback = $content_generation;
+      }
+      if ($callback) {
+        $this_item[$field] = call_user_func($callback, $this_item[$field]);
+      }
     }
     array_push($data, $this_item);
   }
   return $data;
+}
+
+/**
+ * Generate content
+ */
+function stub_content_generate_content() {
+  return 'hi';
 }
 
 /**
