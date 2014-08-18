@@ -69,7 +69,7 @@ function drush_stub_content($type = NULL, $entity_type = 'node') {
     array_push($fields, $field);
   }
 
-  $output_function = 'stub_content_output_' . drush_get_option('output');
+  $output_function = 'stub_content_output_' . drush_get_option('output', 'yaml');
   if (!function_exists($output_function)) {
     drush_log(t('Invalid output type'), 'error');
     return;
