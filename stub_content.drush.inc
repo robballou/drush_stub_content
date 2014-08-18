@@ -135,7 +135,11 @@ function stub_content_build_data_array($type, $fields) {
  * Generate content
  */
 function stub_content_generate_content() {
-  return 'hi';
+  $content = '';
+  if (function_exists('devel_create_content')) {
+    $content = devel_create_content();
+  }
+  return $content;
 }
 
 /**
