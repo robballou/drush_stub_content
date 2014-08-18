@@ -122,7 +122,7 @@ function stub_content_build_data_array($type, $fields) {
         $callback = $content_generation;
       }
       if ($callback) {
-        $this_item[$field] = call_user_func($callback, $this_item[$field]);
+        $this_item[$field] = call_user_func($callback, $field, $this_item[$field]);
       }
     }
     array_push($data, $this_item);
@@ -161,6 +161,14 @@ function stub_content_output_csv($data) {
 }
 
 /**
+ * Output JSON for stubbed content
+ */
+function stub_content_output_json($data) {
+  $output = json_enocde($data);
+  return $output;
+}
+
+/**
  * Output YAML for stubbed content
  */
 function stub_content_output_yaml($data) {
@@ -169,6 +177,13 @@ function stub_content_output_yaml($data) {
   foreach ($data as $row) {
     if (function_exists('yaml_emit')) {
       $output .= yaml_emit($row);
+    }
+    else {
+      // basic YAML output
+      $output .= "---\n";
+      foreach ($row as $key => $value) {
+        $output .= "$key: $value\n";
+      }
     }
   }
 
