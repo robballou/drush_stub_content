@@ -2,6 +2,10 @@
 
 Tool for creating exported stub content. This can be used in conjunction with Migrate or other tools to pull this content into a Drupal project.
 
+## Usage
+
+    drush stub-content article --include-id --include-title --count=4
+
 ## Options
 
 - content-generation: best set in code (see below)
