@@ -20,6 +20,10 @@ function stub_content_drush_command() {
       'content-generation' => array(
         'description' => 'Options for generating content. Usually set in a configuration file.',
       ),
+      'skip-content-generation' => array(
+        'description' => 'Bypass content generation',
+        'default' => FALSE,
+      )
       'count' => array(
         'description' => 'Number of items to create',
         'default' => 1,
@@ -115,11 +119,13 @@ function stub_content_build_data_array($type, $fields) {
 
       // call the callback for this field
       $callback = NULL;
-      if (isset($content_generation[$field])) {
-        $callback = $content_generation[$field];
-      }
-      elseif (is_string($content_generation) && is_callable($content_generation)) {
-        $callback = $content_generation;
+      if (!drush_get_option('skip-content-generation', FALSE)) {
+        if (isset($content_generation[$field])) {
+          $callback = $content_generation[$field];
+        }
+        elseif (is_string($content_generation) && is_callable($content_generation)) {
+          $callback = $content_generation;
+        }
       }
       if ($callback) {
         $this_item[$field] = call_user_func($callback, $field, $this_item[$field]);
